@@ -6,4 +6,165 @@
 @import "compass";
 @import "susy";
 
-h1{color:#FF0000;}
+
+html {
+  @include box-sizing(border-box);
+}
+*, *:before, *:after {
+  @include box-sizing(inherit);
+}
+
+body{
+  background:#061156;
+  color:#fff;
+
+  font-family:Arial, Helvetica, sans-serif;
+
+}
+.content {
+
+
+  background:url(/images/background.jpg) 50% 0 repeat fixed;
+  min-height: 1000px;
+  height: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+  position: relative;
+
+  .wrapper{
+    @include clearfix;
+    @include container(60em);
+
+
+    .left-col{
+      @include clearfix;
+      @include span(9 of 12);
+
+
+
+        h1{
+          margin:0;
+          position:fixed;
+          top:30px;
+
+
+          a.logo{
+            display:inline-block;
+            height:275px;
+            width:520px;
+            text-indent:-9999px;
+            background: url(/images/thot-logo.png) left top no-repeat;
+
+          }
+          a.modal{
+
+            position:absolute;
+            top:145px;
+            left:530px;
+            display:inline-block;
+            height:145px;
+            width:155px;
+            text-indent:-9999px;
+            background: url(/images/lamp.png) left bottom no-repeat;
+          }
+        }
+
+        p.edito{
+
+          font-size:.875em;
+          margin-top:335px;
+          padding:0 110px  20px 0;
+
+        }
+        .left-incol{
+          @include span(3 of 12 );
+
+        }
+        .right-incol{
+          @include clearfix;
+          @include span(9 of 12 last);
+          h2{
+            padding:0 50px 0 0;
+            font-size:1.5em;
+            @include span(full);
+
+          }
+          form{
+            p{margin:10px 0 0 0;}
+            @include clearfix;
+            .inputtext{
+              color:#333;
+              font-size:.75em;
+              padding:2px;
+              width:99%;
+              box-shadow: inset -3px 4px 3px -3px #707070;
+              -webkit-box-shadow: inset -3px 3px 4px -3px #707070;
+              -moz-box-shadow: inset -3px 4px 3px -3px #707070;
+              -o-box-shadow: inset -3px 4px 3px -3px #707070;
+              border: 0px solid #000000;
+            }
+            @include span(20em);
+            .left-el{
+              @include span(3 of 6);
+
+
+            }
+            .right-el{
+              @include span(3 of 6 last);
+            }
+            .full-el{
+              @include span(full);
+
+            }
+            .checkbox-el{
+              @include span(4 of 6);
+            }
+            .submit-el{
+              @include span(2 of 6 last);
+              text-align:right;
+              .submitbutton{
+
+                text-transform:uppercase;
+                background:#f39200;
+                border-radius: 2px 2px 2px 2px;
+                -moz-border-radius: 2px 2px 2px 2px;
+                -webkit-border-radius: 2px 2px 2px 2px;
+                border: 0px solid #000000;
+                font-size:.9em;
+                padding:3px 8px 3px 8px;
+                box-shadow: inset 4px -4px 12px -3px #a76400;
+                -webkit-box-shadow: inset 4px -4px 12px -3px #a76400;
+                -moz-box-shadow: inset 4px -4px 12px -3px #a76400;
+                -o-box-shadow: inset 4px -4px 12px -3px #a76400;
+              }
+            }
+          }
+
+
+        }
+        .address{
+          @include span(full);
+          text-align:center;
+          font-size:30px;
+          color:#ffe163;
+          a{
+
+            color:#ffe163;
+          }
+        }
+
+    }
+    .right-col{
+      @include span(3 of 12 last);
+      .bd{
+      background:lime;
+      position:fixed;
+      }
+    }
+  }
+
+
+
+
+}
