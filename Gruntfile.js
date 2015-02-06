@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     files: {
       js: {
         src: ["app/2_js/main.js", "app/2_js/**/*.js"],
-        vendors: ["bower_components/jquery/dist/jquery.js"],
+        vendors: ["bower_components/jquery/dist/jquery.js","bower_components/greensock/src/minified/TweenMax.min.js"],
       },
       assets: {
         templates: "app/1_templates/",
