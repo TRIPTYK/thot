@@ -25,21 +25,41 @@ body{
 
 
   background:url(/images/background.jpg) 50% 0 repeat fixed;
-  min-height: 1000px;
-  height: 1000px;
+  min-height:1500px;
+  height:1500px;
+
+  @include susy-breakpoint(875px) {
+min-height:1300px;
+height:1300px;
+
+}
+  padding-bottom:20px;
   margin: 0 auto;
   width: 100%;
   max-width: 1920px;
   position: relative;
 
   .wrapper{
-    @include clearfix;
-    @include container(60em);
 
+    @include clearfix;
+    @include container(20em);
+    @include susy-breakpoint(600px) {
+    @include container(40em);
+  }
+    @include susy-breakpoint(875px) {
+      @include container(60em);
+    }
+    padding:0 20px;
 
     .left-col{
       @include clearfix;
-      @include span(9 of 12);
+      @include span(full);
+      @include susy-breakpoint(600px) {
+      @include span(8 of 12);
+    }
+      @include susy-breakpoint(875px) {
+        @include span(9 of 12);
+      }
 
 
 
@@ -51,43 +71,93 @@ body{
 
           a.logo{
             display:inline-block;
-            height:275px;
-            width:520px;
+            height:195px;
+            width:325px;
+            background: url(/images/thot-logo-mobile.png) left top no-repeat;
+            @include susy-breakpoint(600px) {
+            background: url(/images/thot-logo-tab.png) left top no-repeat;
+          }
+            @include susy-breakpoint(875px) {
+              height:290px;
+              width:520px;
+              background: url(/images/thot-logo.png) left top no-repeat;
+            }
+
+
             text-indent:-9999px;
-            background: url(/images/thot-logo.png) left top no-repeat;
+
 
           }
           a.modal{
 
             position:absolute;
-            top:145px;
-            left:530px;
+            top:405px;
+            left:220px;
             display:inline-block;
             height:145px;
             width:155px;
             text-indent:-9999px;
-            background: url(/images/lamp.png) left bottom no-repeat;
+            background: url(/images/lamp-2.png) left bottom no-repeat;
+
+            @include susy-breakpoint(875px) {
+              top:145px;
+              left:530px;
+
+              background: url(/images/lamp.png) left bottom no-repeat;
+
+            }
+
           }
         }
 
         p.edito{
 
           font-size:.875em;
-          margin-top:335px;
+          margin-top:215px;
+          @include susy-breakpoint(600px) {
+          margin-top:235px;
           padding:0 110px  20px 0;
+          }
+
+          @include susy-breakpoint(875px) {
+            margin-top:335px;
+
+          }
+
+          .arrow-down-2{
+            margin:30px auto;
+            display:block;
+            @include susy-breakpoint(875px) {
+
+            display:none;
+
+          }
+
+          }
 
         }
         .left-incol{
-          @include span(3 of 12 );
+          display:none;
+          @include susy-breakpoint(875px) {
+            display:block;
+            @include span(3 of 12 );
+        }
 
         }
         .right-incol{
           @include clearfix;
+          @include span(full);
+        @include susy-breakpoint(875px) {
           @include span(9 of 12 last);
+        }
           h2{
+            display:none;
+            @include susy-breakpoint(875px) {
+              display:block;
             padding:0 50px 0 0;
             font-size:1.5em;
             @include span(full);
+          }
 
           }
           form{
@@ -104,8 +174,11 @@ body{
               -o-box-shadow: inset -3px 4px 3px -3px #707070;
               border: 0px solid #000000;
             }
+            @include susy-breakpoint(600px) {
             @include span(20em);
+          }
             .left-el{
+
               @include span(3 of 6);
 
 
@@ -127,9 +200,7 @@ body{
 
                 text-transform:uppercase;
                 background:#f39200;
-                border-radius: 2px 2px 2px 2px;
-                -moz-border-radius: 2px 2px 2px 2px;
-                -webkit-border-radius: 2px 2px 2px 2px;
+                @include border-radius(2px);
                 border: 0px solid #000000;
                 font-size:.9em;
                 padding:3px 8px 3px 8px;
@@ -143,28 +214,152 @@ body{
 
 
         }
-        .address{
+        .address-container{
+          @include clearfix;
           @include span(full);
-          text-align:center;
-          font-size:30px;
-          color:#ffe163;
-          a{
-
-            color:#ffe163;
+          .full{
+            @include span(full);
           }
-        }
+          .half-col{
+            @include span(full);
+            @include susy-breakpoint(875px) {
+            @include span(1 of 2);
+          }
 
+          }
+          .half-col-last{
+            @include span(full);
+            @include susy-breakpoint(875px) {
+            @include span(1 of 2 last);
+          }
+          }
+
+          .emailaddress{
+            text-align:left;
+            font-size:24px;
+            color:#ffffff;
+            font-weight:bold;
+
+
+            @include susy-breakpoint(875px) {
+
+            text-align:center;
+            font-size:30px;
+            color:#ffe163;
+
+          }
+            a{
+              display:block;
+              color:#ffffff;
+              font-weight:normal;
+              font-size:18px;
+              margin-top:30px;
+              @include susy-breakpoint(875px) {
+              color:#ffe163;
+              font-size:30px;
+              display:inline;
+            }
+            }
+          }
+          .address{
+            padding-top:25px;
+            text-align:left;
+
+            @include susy-breakpoint(875px) {
+              text-align:center;
+            }
+
+
+          }
+
+        }
     }
     .right-col{
-      @include span(3 of 12 last);
-      .bd{
-      background:lime;
-      position:fixed;
+      display:none;
+      @include susy-breakpoint(600px) {
+        display:block;
+      @include span(4 of 12 last);
+    }
+
+      @include susy-breakpoint(875px) {
+        @include span(3 of 12 last);
+      }
+
+      .pages{
+
+        margin-top:80px;
+        position:relative;
+
+        @include susy-breakpoint(600px) {
+
+        cursor:default;
+        .p2{z-index:500;top:30;}
+        .p3{z-index:510;top:230;left:3;}
+        .p4{z-index:520;top:440;left:-14;}
+        .p5{z-index:530;top:640;left:6;}
+        .p6{z-index:540;top:852;left:-3;}
+        .p7{z-index:550;top:1060;}
+        .p8{z-index:560;top:1290;}
+        img{position:absolute;top:0;}
+      }
+        @include susy-breakpoint(875px) {
+          cursor:pointer;
+        .p2{z-index:500;top:30;}
+        .p3{z-index:450;top:-5;left:3;}
+        .p4{z-index:400;top:7;left:-14;}
+        .p5{z-index:350;top:30;left:6;}
+        .p6{z-index:300;top:0;left:-3;}
+        .p7{z-index:250;top:0;}
+        .p8{z-index:200;top:0;}
+
+      }
+        .arrow-down{
+          display:none;
+          @include susy-breakpoint(875px) {
+            display:block;
+          left:70px;
+          top:250px;
+          }
+        }
+      }
+
+    }
+
+
+    .overlay-content{
+      display:none;
+      position: fixed;
+      top:50%;
+      left:50%;
+      margin:-206px 0 0 -145px;
+      z-index: 10000;
+      text-align:right;
+      a.close-modal{
+        color:#ffffff;
+        position:absolute;
+        right:0;
+        top:-20px;
+        text-decoration:none;
+
+
       }
     }
+
   }
+  .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #051051;
+      filter:alpha(opacity=65);
+      -moz-opacity:0.65;
+      -khtml-opacity: 0.65;
+      opacity: 0.65;
+      z-index: 1000;
 
-
+  }
 
 
 }
