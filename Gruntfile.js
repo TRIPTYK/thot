@@ -61,7 +61,7 @@ module.exports = function(grunt) {
       generated: {
         options: {
           mangle: {
-            except: ['jQuery']
+            except: ['jQuery','TweenMax']
           },
           sourceMap: true,
           sourceMapName: 'generated/static/sourcemap.map',

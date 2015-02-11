@@ -19,27 +19,27 @@
       <div class="right-incol">
         <h2>Formulaire pour recevoir la bande dessinée :</h2>
         <p class="tab-text">Pour recevoir la documentation et la bande dessinée “THOT, S.O.S. BUDGET !” :</p>
-        <form action="">
+        <form action="#" method="post" class="form-validator">
           <p class="left-el"><label for="name">Nom</label><br>
-            <input type="text" name="name" class="inputtext">
+            <input type="text" name="name" class="inputtext validateThis ValueName">
           </p>
           <p class="right-el"><label for="firstname">Prénom</label><br>
-            <input type="text" name="firstname" class="inputtext">
+            <input type="text" name="firstname" class="inputtext validateThis ValueFirstname">
           </p>
           <p class="full-el"><label for="company">Entreprise</label><br>
-            <input type="text" name="company" class="inputtext">
+            <input type="text" name="company" class="inputtext validateThis ValueCompany">
           </p>
           <p class="full-el"><label for="position">Fonction</label><br>
-            <input type="text" name="position" class="inputtext">
+            <input type="text" name="position" class="inputtext validateThis ValueFonction">
           </p>
           <p class="left-el"><label for="phone">Téléphone</label><br>
-            <input type="text" name="phone" class="inputtext">
+            <input type="text" name="phone" class="inputtext validateThis ValueNumber">
           </p>
           <p class="right-el"><label for="email">Adresse mail</label><br>
-            <input type="text" name="email" class="inputtext">
+            <input type="text" name="email" class="inputtext validateThis ValueEmail">
           </p>
           <p class="checkbox-el">
-            <input type="checkbox" name="optin" class="checkbox">
+            <input type="checkbox" for="optin" name="optin" class="checkbox ValueIsAgreeContact">
             <label for="optin">J'accepte d'être contacté</label>
           </p>
           <p class="submit-el">
