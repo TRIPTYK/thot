@@ -153,11 +153,21 @@ module.exports = function(grunt) {
           dest: '/home/user/thot/services/'
         }]
       }
+    },
+    sshexec: {
+      restartPM: {
+        command: 'pm2 restart 0',
+        options: {
+          host: '172.16.20.222',
+          username: 'user',
+          password: 'bizz$user'
+        }
+      }
     }
   });
   require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
   grunt.registerTask('default', ['sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated', 'http-server', 'watch']);
   grunt.registerTask('build', ['clean', 'sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated']);
   grunt.registerTask('deploy_static', ['build', 'scp:static']);
-  grunt.registerTask('deploy_services', ['build','scp:services']);
+  grunt.registerTask('deploy_services', ['build', 'scp:services','sshexec:restartPM']);
 }

@@ -45,10 +45,10 @@ function saveForm(data, response) {
       var transporter = nodemailer.createTransport();
       var mailOptions = {
         from: 'Thot site <info@bizzdev.com>', // sender address
-        to: ['gilles@triptyk.eu', 'smh@bizzdev.com'], // list of receivers
+        to: ['gilles@triptyk.eu'], //to: ['gilles@triptyk.eu', 'smh@bizzdev.com'], // list of receivers
         subject: contact.firstName + ' ' + contact.name + 'has filled the thot form', // Subject line
-        text: 'contact is :' + JSON.stringify(contact), // plaintext body
-        html: 'Contact is : <br/>' + JSON.stringify(contact) // html body
+        text: 'Contact is :' + JSON.stringify(contact), // plaintext body
+        html: contact.firstName+' '+contact.name+': <br/> Company : '+contact.company +'<br /> Function :'+contact.function+'<br /> Phone :'+contact.phone +'<br /> mail : '+contact.mail// html body
       };
 
       // send mail with defined transport object

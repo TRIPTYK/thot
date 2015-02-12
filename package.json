@@ -31,6 +31,7 @@
     "grunt-newer": "^1.1.0",
     "grunt-sass": "^0.17.0",
     "grunt-scp": "^0.1.8",
+    "grunt-ssh": "^0.12.1",
     "grunt-sync": "^0.2.3",
     "grunt-timer": "^0.5.8",
     "load-grunt-tasks": "^3.1.0",
