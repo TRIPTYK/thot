@@ -112,7 +112,7 @@ height:1300px;
         }
 
         p.edito{
-
+          position:relative;
           font-size:.875em;
           margin-top:215px;
           @include susy-breakpoint(600px) {
@@ -138,6 +138,7 @@ height:1300px;
 
         }
         .left-incol{
+          position:relative;
           display:none;
           @include susy-breakpoint(875px) {
             display:block;
@@ -146,6 +147,7 @@ height:1300px;
 
         }
         .right-incol{
+          position:relative;
           @include clearfix;
           @include span(full);
         @include susy-breakpoint(875px) {
@@ -216,6 +218,7 @@ height:1300px;
 
         }
         .address-container{
+          position:relative;
           @include clearfix;
           @include span(full);
           .full{
