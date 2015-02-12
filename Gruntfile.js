@@ -143,6 +143,15 @@ module.exports = function(grunt) {
           // path on the server
           dest: '/home/user/thot/static/'
         }]
+      },
+      services: {
+        files: [{
+          cwd: 'generated/services',
+          src: '**/*',
+          filter: 'isFile',
+          // path on the server
+          dest: '/home/user/thot/services/'
+        }]
       }
     }
   });
@@ -150,4 +159,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated', 'http-server', 'watch']);
   grunt.registerTask('build', ['clean', 'sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated']);
   grunt.registerTask('deploy_static', ['build', 'scp:static']);
+  grunt.registerTask('deploy_services', ['build','scp:services']);
 }

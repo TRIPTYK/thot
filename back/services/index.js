@@ -1,9 +1,9 @@
-var express = require('express')
-var hostname = process.env.HOSTNAME || 'localhost',
+var express = require('express'),
+  hostname = process.env.HOSTNAME || 'localhost',
   querystring = require('querystring'),
   mongoose = require('mongoose'),
-  port = parseInt(process.env.PORT, 10) || 7777;
-var app = express();
+  port = parseInt(process.env.PORT, 10) || 7777,
+  app = express();
 
 var contactSchema = mongoose.Schema({
   firstName: String,
@@ -12,12 +12,12 @@ var contactSchema = mongoose.Schema({
   function: String,
   phone: String,
   mail: String,
-  isContactAgree: Boolean
+  isContactAgree: Boolean,
+  timeStamp:String
 });
 var Contact = mongoose.model('contact', contactSchema);
 
 function saveForm(data, response) {
-    console.log("saveForm");
     mongoose.connect('mongodb://localhost/thotContacts');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,7 +27,7 @@ function saveForm(data, response) {
     //{"firstName": "gilles","name": "Bertrand","company": "triptyk","function": "Director", "phone": "0032034944908","mail": "gilles@triptyk.eu","isContactAgree": "true"}
     //curl -H "Content-Type: application/json" -d 'firstName=gilles&name=Bertrand&company=triptyk&function=Director&phone=003203494490&mail=gilles@triptyk.eu&isContactAgree= true' http://localhost:4567/saveThotForm
     data = querystring.parse(data.toString('utf-8'));
-    console.log(data);
+    // console.log(data);
 
     var contact = new Contact({
       firstName: data.firstName,
@@ -36,28 +36,29 @@ function saveForm(data, response) {
       function: data.function,
       phone: data.phone,
       mail: data.mail,
-      isContactAgree: data.isContactAgree
+      isContactAgree: data.isContactAgree,
+      timeStamp : new Date().toString()
     });
     contact.save(function(err, contact) {
       if (err) throw err;
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport();
-var mailOptions = {
-    from: 'Thot site <info@bizzdev.com>', // sender address
-    to:['gilles@triptyk.eu','smh@bizzdev.com'], // list of receivers
-    subject: contact.firstName+' '+contact.name+'has filled the thot form', // Subject line
-    text: 'contact is :'+JSON.stringify(contact), // plaintext body
-    html: 'Contact is : <br/>'+JSON.stringify(contact) // html body
-};
+      var nodemailer = require('nodemailer');
+      var transporter = nodemailer.createTransport();
+      var mailOptions = {
+        from: 'Thot site <info@bizzdev.com>', // sender address
+        to: ['gilles@triptyk.eu', 'smh@bizzdev.com'], // list of receivers
+        subject: contact.firstName + ' ' + contact.name + 'has filled the thot form', // Subject line
+        text: 'contact is :' + JSON.stringify(contact), // plaintext body
+        html: 'Contact is : <br/>' + JSON.stringify(contact) // html body
+      };
 
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        console.log(error);
-    }else{
-        console.log('Message sent: ' + info.response);
-    }
-});
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Message sent: ' + info.response);
+        }
+      });
       response.end('Following data has been saved : ' + JSON.stringify(contact));
       db.close();
     })
@@ -69,7 +70,6 @@ app.post('/saveThotForm', function(req, res) {
     saveForm(data, res);
   })
 })
-
 
 var server = app.listen(port, function() {
 
