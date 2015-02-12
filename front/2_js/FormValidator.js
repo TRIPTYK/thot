@@ -23,7 +23,7 @@
 		console.log(myString);
 		$.ajax({
 		  type: "POST",
-		  url: "172.16.20.222:5000/saveThotForm",
+		  url: "/saveThotForm",
 		  data: JsonForm,
 		  success: function(data){
 		  	console.log(data);
@@ -31,7 +31,7 @@
 		  error:function(err){
 		  	console.error(err);
 		  }
-		}); 
-	
-	}); 
+		});
+
+	});
 })(window, jQuery);

@@ -4,26 +4,29 @@ module.exports = function(grunt) {
   grunt.initConfig({
     files: {
       js: {
-        src: ["app/2_js/main.js", "app/2_js/**/*.js"],
-        vendors: ["bower_components/jquery/dist/jquery.js","bower_components/greensock/src/minified/TweenMax.min.js"],
+        src: ["front/2_js/main.js", "front/2_js/**/*.js"],
+        vendors: ["bower_components/jquery/dist/jquery.js", "bower_components/greensock/src/minified/TweenMax.min.js"],
       },
       assets: {
-        templates: "app/1_templates/",
-        images: "app/4_images/",
-        fonts: "app/6_fonts/"
+        templates: "front/1_templates/",
+        images: "front/4_images/",
+        fonts: "front/6_fonts/"
+      },
+      back: {
+        src: "back/services"
       }
     },
     sass: {
       options: {
         sourceMap: false,
         outputStyle: 'extended',
-        includePaths: ['bower_components/compass-mixins/lib/', 'bower_components/susy/sass/', 'app/3_sass']
+        includePaths: ['bower_components/compass-mixins/lib/', 'bower_components/susy/sass/', 'front/3_sass']
       },
       dist: {
         files: [{
 
           expand: true, // Enable dynamic expansion.
-          cwd: 'app/3_sass/', // Src matches are relative to this path.
+          cwd: 'front/3_sass/', // Src matches are relative to this path.
           src: ['**/*.scss'], // Actual pattern(s) to match.
           dest: 'generated/static/css', // Destination path prefix.
           ext: '.css', // Dest filepaths will have this extension.
@@ -55,20 +58,28 @@ module.exports = function(grunt) {
           dest: 'generated/static/fonts'
         }],
         verbose: true
+      },
+      back: {
+        files: [{
+          cwd: '<%= files.back.src %>',
+          src: ['**'],
+          dest: 'generated/services/'
+        }],
+        verbose: true
       }
     },
     uglify: {
       generated: {
         options: {
           mangle: {
-            except: ['jQuery','TweenMax']
+            except: ['jQuery', 'TweenMax']
           },
           sourceMap: true,
           sourceMapName: 'generated/static/sourcemap.map',
           sourceMapIncludeSources: true
         },
         src: ["<%= files.js.vendors %>", "<%= files.js.src %>"],
-        dest: "generated/static/js/app.min.js"
+        dest: "generated/static/js/front.min.js"
       }
     },
     'http-server': {
@@ -90,16 +101,17 @@ module.exports = function(grunt) {
     },
     'compile-handlebars': {
       globalTemplate: {
-        template: 'app/1_templates/pages/**/*.hbs',
-        templateData: 'app/1_templates/datas/pages/**/*.json',
+        template: 'front/1_templates/pages/**/*.hbs',
+        templateData: 'front/1_templates/datas/pages/**/*.json',
         output: 'generated/static/*.html',
-        partials: 'app/1_templates/partials/**/*.hbs',
-        registerFullPath:false,
-          globals: [
-            'app/1_templates/datas/globals.json'
-          ]
+        partials: 'front/1_templates/partials/**/*.hbs',
+        registerFullPath: false,
+        globals: [
+          'front/1_templates/datas/globals.json'
+        ]
       }
     },
+    'clean': ["generated"],
     watch: {
       options: {
         livereload: true
@@ -116,8 +128,26 @@ module.exports = function(grunt) {
         files: ["app/3_sass/**/*.scss"],
         tasks: ["sass:dist"]
       }
+    },
+    scp: {
+      options: {
+        host: '172.16.20.222',
+        username: 'user',
+        password: 'bizz$user'
+      },
+      static: {
+        files: [{
+          cwd: 'generated/static',
+          src: '**/*',
+          filter: 'isFile',
+          // path on the server
+          dest: '/home/user/thot/static/'
+        }]
+      }
     }
   });
   require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['sass:dist', 'sync:images', 'sync:fonts', 'compile-handlebars:globalTemplate', 'uglify:generated', 'http-server', 'watch']);
+  grunt.registerTask('default', ['sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated', 'http-server', 'watch']);
+  grunt.registerTask('build', ['clean', 'sass:dist', 'sync:images', 'sync:fonts', 'sync:back', 'compile-handlebars:globalTemplate', 'uglify:generated']);
+  grunt.registerTask('deploy_static', ['build', 'scp:static']);
 }
